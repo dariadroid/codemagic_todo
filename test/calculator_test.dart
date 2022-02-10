@@ -10,7 +10,7 @@ void main() {
   group('calculator tests', () {
     test('correctly counts sum', () {
       final sum = calculator.sum(2, 2);
-      expect(sum, 3);
+      expect(sum, 4);
     });
   });
 }
