@@ -34,28 +34,40 @@ class ToDoListPage extends StatefulWidget {
 }
 
 class _ToDoListPageState extends State<ToDoListPage> {
-  List<String> _todos = [];
+  final List<String> _todos = [];
 
   @override
   void initState() {
     super.initState();
-    _todos = widget.todos;
+    _todos.addAll(widget.todos);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('TODO today'),
-          centerTitle: true,
+      appBar: AppBar(
+        title: const Text('TODO today'),
+        centerTitle: true,
+      ),
+      body: ListView.builder(
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(_todos[index]),
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(_todos[index]),
-          ),
-          itemCount: _todos.length,
-          padding: const EdgeInsets.symmetric(vertical: 32),
-        ));
+        itemCount: _todos.length,
+        padding: const EdgeInsets.symmetric(vertical: 32),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addTask,
+        tooltip: 'Add task',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _addTask() {
+    setState(() {
+      _todos.add('${_todos.length + 1}. A new task');
+    });
   }
 }
